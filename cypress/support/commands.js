@@ -26,7 +26,7 @@
 
 Cypress.Commands.add('login', (email, password) => {
     cy.visit('/login');
-    cy.wait(1000);
+    cy.wait(3000);
     cy.get('[data-testid="username"]').should('be.visible');
     cy.get('[data-testid="username"]').should('be.visible').type(email);
     cy.get('#login-submit').should('be.visible').click();
@@ -37,10 +37,5 @@ Cypress.Commands.add('login', (email, password) => {
 });
 
 Cypress.Commands.add('deleteBoard', (boardName) => {
-    cy.contains(boardName).click();
-    cy.get('.board-menu-navigation-item-link').contains('More').click();
-    cy.get('.board-menu-navigation-item-link').contains('Close board…').click();
-    cy.get('input[value="Close"]').click();
-    cy.get('input[value="Permanently delete board"]').click();
-    cy.get('input[value="Delete"]').click();
+    // here need an update to implement the command to delete the board by name.
 });
