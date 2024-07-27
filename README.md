@@ -35,3 +35,6 @@ cd <NOMBRE_DEL_REPOSITORIO>
 
 
 npm install
+
+
+npx cypress run --spec "cypress/e2e/board.cy.js"
