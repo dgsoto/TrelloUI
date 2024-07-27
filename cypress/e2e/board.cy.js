@@ -1,10 +1,10 @@
-import { generateBoardName } from "../support/utils";
+import { generateRandomString } from "../support/utils";
 
 describe('Trello Board Tests', () => {
     let boardName;
 
     before(() => {        
-        boardName = generateBoardName();
+        boardName = generateRandomString('board');
     });
 
     beforeEach(() => {
