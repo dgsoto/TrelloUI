@@ -1,25 +1,35 @@
+import { generateRandomString } from "../support/utils";
+
 describe('Trello List Tests', () => {
+
+    let boardName;
+    let listName;
+    
     beforeEach(() => {
-        cy.fixture('user').as('userData');
-        cy.login(this.userData.email, this.userData.password);
-        
-        // Create a new board for list tests
-        cy.get('.board-tile.mod-add').click();
-        cy.get('input[data-test-id="create-board-title-input"]').type('List Test Board');
-        cy.get('button[data-test-id="create-board-submit-button"]').click();
-        cy.url().should('include', '/b/');
+        const username = Cypress.env('CYPRESS_USERNAME');
+        const password = Cypress.env('CYPRESS_PASSWORD');
+        cy.login(username, password);
+        boardName = generateRandomString('board');
+        listName = 'To Do';
+        cy.createBoard(boardName);
     });
 
-    it('should create a new list', () => {
-        cy.get('input[name="name"]').type('To Do');
-        cy.get('input[value="Add list"]').click();
-        cy.contains('To Do').should('be.visible');
+    it('Verify that it is possible to create a new list.', () => {
+        cy.createList(listName);
     });
 
-    it('should rename a list', () => {
-        cy.get('input[name="name"]').type('To Do');
-        cy.get('input[value="Add list"]').click();
-        cy.get('.list-header-name').click().clear().type('Updated To Do{enter}');
-        cy.contains('Updated To Do').should('be.visible');
+    it('Verify that it is possible to update the list name.', () => {
+        cy.createList(listName);
+        cy.wait(3000);
+        cy.contains(listName).click();
+        // Buscar el textarea con data-testid y actualizar el nombre de la lista
+        cy.get('textarea[data-testid="list-name-textarea"]').should('be.visible').clear().type('To Do Updated{enter}');
+        // Verificar que el nombre de la lista se ha actualizado
+        cy.contains('To Do Updated').should('be.visible');
     });
+
+    /*afterEach(() => {
+        // Limpiar el tablero creado después de cada prueba
+        cy.deleteBoard(boardName);
+    });*/
 });

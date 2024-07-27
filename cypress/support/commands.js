@@ -39,3 +39,21 @@ Cypress.Commands.add('login', (email, password) => {
 Cypress.Commands.add('deleteBoard', (boardName) => {
     // here need an update to implement the command to delete the board by name.
 });
+
+Cypress.Commands.add('createBoard', (boardName) => {
+    cy.log(boardName);
+    cy.get('div.board-tile.mod-add').click();
+    cy.get('[data-testid="create-board-title-input"]').type(boardName);
+    cy.get('[data-testid="create-board-submit-button"]').click();
+    cy.wait(6000);
+    cy.get('[data-testid="board-name-display"]').should('be.visible');
+    cy.url().should('include', `/${boardName}`);
+    cy.get('[data-testid="board-name-display"]').should('contain.text', boardName);
+});
+
+Cypress.Commands.add('createList', (listName) => {
+    cy.log(listName);
+    cy.get('[data-testid="list-name-textarea"]').type(listName);
+    cy.get('[data-testid="list-composer-add-list-button"]').should('be.visible').click();
+    cy.contains(listName).should('be.visible');
+});
