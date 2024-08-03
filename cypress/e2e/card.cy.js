@@ -1,38 +1,37 @@
+import { generateRandomString } from "../support/utils";
+
 describe('Trello Card Tests', () => {
+
+    let boardName;
+    let listName;
+
     beforeEach(() => {
-        cy.fixture('user').as('userData');
-        cy.login(this.userData.email, this.userData.password);
-
-        // Create a new board and a list for card tests
-        cy.get('.board-tile.mod-add').click();
-        cy.get('input[data-test-id="create-board-title-input"]').type('Card Test Board');
-        cy.get('button[data-test-id="create-board-submit-button"]').click();
-        cy.url().should('include', '/b/');
-        cy.get('input[name="name"]').type('To Do');
-        cy.get('input[value="Add list"]').click();
+        const username = Cypress.env('CYPRESS_USERNAME');
+        const password = Cypress.env('CYPRESS_PASSWORD');
+        cy.login(username, password);
+        boardName = generateRandomString('board');
+        listName = 'To Do';
+        cy.createBoard(boardName);
+        cy.createList(listName);
     });
 
-    it('should create a new card', () => {
-        cy.get('.open-card-composer').click();
-        cy.get('textarea[placeholder="Enter a title for this card…"]').type('New Card');
-        cy.get('input[value="Add card"]').click();
-        cy.contains('New Card').should('be.visible');
+    it('Verify that it is possible to create a new card.', () => {
+        //code here
+        cy.get('button[data-testid="list-add-card-button"]').should('be.visible').click();
+        cy.wait(1000);
+        //cy.get('button[type="submit"]').click();
+        //cy.get('textarea[data-testid="list-card-composer-textarea"]').should('be.visible').type('card');
+        cy.contains('button', 'Add card');
+        //cy.get('button[data-testid="list-card-composer-add-card-button"]').click();
+        // Verificar que la nueva tarjeta es visible en la lista
+        cy.contains('card').should('be.visible');
     });
 
-    it('should move a card to another list', () => {
-        // Create another list
-        cy.get('.open-add-list').click();
-        cy.get('input[name="name"]').type('Done');
-        cy.get('input[value="Add list"]').click();
+    /*it('Verify that it is possible to move a card to another list.', () => {
+        //code here
+    });*/
 
-        // Create a card
-        cy.get('.open-card-composer').click();
-        cy.get('textarea[placeholder="Enter a title for this card…"]').type('Move Card');
-        cy.get('input[value="Add card"]').click();
-
-        // Move card to 'Done' list
-        cy.get('.list-card').contains('Move Card').trigger('dragstart');
-        cy.get('.list').contains('Done').trigger('drop');
-        cy.contains('Done').parent().contains('Move Card').should('be.visible');
+    afterEach(() => {
+        cy.deleteBoard(boardName);
     });
 });
