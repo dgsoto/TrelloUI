@@ -1,12 +1,12 @@
 describe('Trello Login Tests', () => {
+    const username = Cypress.env('CYPRESS_USERNAME');
+    const password = Cypress.env('CYPRESS_PASSWORD');
+
     beforeEach(() => {
         cy.fixture('user').as('userData');
     });
 
     it('Verify that it is possible to login successfully with valid credentials.', () => {
-        const username = Cypress.env('CYPRESS_USERNAME');
-        const password = Cypress.env('CYPRESS_PASSWORD');
-
         cy.login(username, password);
         cy.wait(3000)
         cy.origin('https://trello.com', () => {
@@ -22,5 +22,13 @@ describe('Trello Login Tests', () => {
         cy.login(this.userData.email, this.userData.password);
         cy.wait(1000)
         cy.get('.css-b0hel9').should('be.visible').should('contain', 'Incorrect email address and / or password');
+    });
+
+    it('Verify that it is possible to logout successfully.', () => {
+        cy.login(username, password);
+        cy.get('div[data-testid="header-member-menu-avatar"] span').should('be.visible').click();
+        cy.get('[data-testid="account-menu-logout"] > .LCeoUSr_PkZrP2').should('be.visible').click();
+        cy.url().should('include', 'logout');
+        cy.contains('h5', 'Log out of your Atlassian account').should('be.visible');
     });
 });

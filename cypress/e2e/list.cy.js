@@ -28,8 +28,7 @@ describe('Trello List Tests', () => {
         cy.contains('To Do Updated').should('be.visible');
     });
 
-    /*afterEach(() => {
-        // Limpiar el tablero creado después de cada prueba
+    afterEach(() => {
         cy.deleteBoard(boardName);
-    });*/
+    });
 });

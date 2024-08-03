@@ -38,3 +38,7 @@ npm install
 
 
 npx cypress run --spec "cypress/e2e/board.cy.js"
+
+
+comando ejecutar prueba
+cypress run --headed

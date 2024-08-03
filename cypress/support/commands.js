@@ -37,7 +37,16 @@ Cypress.Commands.add('login', (email, password) => {
 });
 
 Cypress.Commands.add('deleteBoard', (boardName) => {
-    // here need an update to implement the command to delete the board by name.
+    cy.wait(9000);
+    cy.contains(boardName).click();
+    cy.wait(9000);
+    cy.get('.GDunJzzgFqQY_3 > .nch-icon > [data-testid="OverflowMenuHorizontalIcon"]').click();
+    cy.get('.board-menu-navigation-item-link').contains('Close board').click();
+    cy.get('input[value="Close"]').should('be.visible').click();
+    cy.get('[data-testid="close-board-delete-board-button"]').should('be.visible').click();
+    cy.get('[data-testid="close-board-delete-board-confirm-button"]').should('be.visible').click();
+    cy.url().should('include', '/boards');
+    cy.contains(boardName).should('not.exist');
 });
 
 Cypress.Commands.add('createBoard', (boardName) => {
