@@ -28,5 +28,6 @@ module.exports = defineConfig({
         },
         chromeWebSecurity: false,
         defaultCommandTimeout: 10000,
+        //retries: 1,
     },
 });
