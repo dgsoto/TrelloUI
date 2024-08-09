@@ -23,11 +23,11 @@ describe('Trello List Tests', () => {
         ListHelper.createList(list_data.name);
     });
 
-    /*it('Verify that it is possible to create a new list.', () => {        
+    it('Verify that it is possible to create a new list.', () => {        
         ListHelper.validateListCreatedSuccessfully(list_data.name);
-    });*/
+    });
 
-    it('Verify that it is possible to update the list name.', () => {
+    /*it('Verify that it is possible to update the list name.', () => {
         ListHelper.clickListName(list_data.name);
         ListHelper.updateListName(list_data.name_updated);
         ListHelper.validateListNameUpdatedSuccessfully(list_data.name_updated);
@@ -36,7 +36,7 @@ describe('Trello List Tests', () => {
         //cy.get('textarea[data-testid="list-name-textarea"]').should('be.visible').clear().type('To Do Updated{enter}');
         // Verificar que el nombre de la lista se ha actualizado
         //cy.contains('To Do Updated').should('be.visible');
-    });
+    });*/
 
     afterEach(() => {
         BoardHelper.deleteBoard(board_name);

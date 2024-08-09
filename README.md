@@ -42,3 +42,16 @@ npx cypress run --spec "cypress/e2e/board.cy.js"
 
 comando ejecutar prueba
 cypress run --headed
+
+
+
+
+intgegracion con browserstack
+
+https://www.browserstack.com/docs/automate/cypress
+
+npm install -g browserstack-cypress-cli
+
+browserstack-cypress init
+
+browserstack-cypress run --sync

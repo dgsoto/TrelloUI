@@ -68,6 +68,7 @@ export class BoardHelper {
     }
 
     static deleteBoard(board_name) {
+        //cy.visit('/');
         cy.contains(board_name).click();
         this.clickBoardMenu();
         this.clickCloseBoardButton();

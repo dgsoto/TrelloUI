@@ -6,6 +6,7 @@ import { BoardHelper } from "../pages/board/board.helper";
 import { ListHelper } from "../pages/list/list.helper";
 import { CardHelper } from "../pages/card/card.helper";
 
+
 describe('Trello Card Tests', () => {
 
     let board_name;
@@ -28,15 +29,10 @@ describe('Trello Card Tests', () => {
     });
 
     it('Verify that it is possible to create a new card.', () => {
-        CardHelper.createCard(card_name);
-        //cy.contains(card_name).should('be.visible');
+        CardHelper.cmdCrateCard(card_name);
     });
 
-    /*it('Verify that it is possible to move a card to another list.', () => {
-        //code here
-    });*/
-
-    /*afterEach(() => {
+    afterEach(() => {
         BoardHelper.deleteBoard(board_name);
-    });*/
+    });
 });
