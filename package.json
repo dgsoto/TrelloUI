@@ -4,14 +4,23 @@
   "description": "Automation Web for Trello with Cypress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:run": "cypress run --headed",
+    "cy:open": "cypress open",
+    "cy:chrome": "cypress run --browser chrome --spec cypress/e2e/tests/",
+    "cy:chromeheadless": "cypress run --headless --browser chrome --spec cypress/e2e/tests/",
+    "cy:parallel": "cypress-parallel -s cy:run -t 3 -d ./cypress/e2e/tests/",
+    "cy:browserstack": "browserstack-cypress run --sync --spec cypress/e2e/tests/"
   },
   "author": "XTeam",
   "license": "ISC",
   "dependencies": {
-    "cypress": "^13.13.1"
+    "cypress": "^13.13.1",
+    "cypress-parallel": "^0.14.0",
+    "winston": "^3.13.1"
   },
   "devDependencies": {
+    "cypress-log-to-output": "^1.1.2",
     "cypress-mochawesome-reporter": "^3.8.2",
     "dotenv": "^16.4.5"
   }
