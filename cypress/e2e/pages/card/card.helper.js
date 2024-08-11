@@ -1,3 +1,4 @@
+import { ListElements } from "../list/list.elements";
 import { CardElements } from "./card.elements";
 
 export class CardHelper {
@@ -25,5 +26,43 @@ export class CardHelper {
 
     static cmdCrateCard(card_name) {
         cy.createCard(card_name);
+    }
+
+    static clickOnCardName() {
+        CardElements.elements.cardNameLocator.click();
+    }
+
+    static clickOnMoveCardOption() {
+        CardElements.elements.moveCard.click();
+    }
+
+    static selectTargetList(list_name) {
+        CardElements.elements.selectListToMove.click().type(`${list_name}{enter}`);
+    }
+
+    static clickOnMoveButton() {
+        CardElements.elements.clickMoveButton.click();
+    }
+
+    static clickOnCloseCardModal() {
+        CardElements.elements.clickCloseCardModalButton.click();
+    }
+
+    static moveCardToAnotherList(target_list_name) {
+        this.clickOnCardName();
+        this.clickOnMoveCardOption();
+        this.selectTargetList(target_list_name);
+        this.clickOnMoveButton();
+        this.clickOnCloseCardModal();
+    }
+
+    static xmoveCardToAnotherList(card_name, sourceListName, targetListName) {
+        ListElements.elements.getListByName(sourceListName)
+            .contains(CardElements.elements.cardNameLocator, card_name)
+            .trigger('dragstart');
+
+        ListElements.elements.getListByName(targetListName)
+            .trigger('drop')
+            .trigger('dragend');
     }
 }
